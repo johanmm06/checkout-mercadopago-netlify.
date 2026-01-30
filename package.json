@@ -1,0 +1,12 @@
+{
+  "name": "mercadopago-checkout",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "mercadopago": "^2.12.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnico Elite 2026 | Formación Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+
+        
+ #precio .whatsapp-float {
+  display: none;
+}
+
+        @keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s ease-out;
+}
+
+        /* EFECTO POP GLOBAL PARA TARJETAS */
+        .pop-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .pop-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 25px 45px -15px rgba(0,0,0,0.6);
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #07121E; 
+            color: white; 
+            overflow-x: hidden; 
+        }
+        .content-wrapper { max-width: 500px; margin: 0 auto; }
+        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border-radius: 24px; }
+        
+        /* Botón con Luminosidad Mejorada */
+        .btn-cta-glow {
+            animation: pulse-glow 2s infinite;
+            background: #22c55e;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        @keyframes pulse-glow {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
+            50% { transform: scale(1.03); box-shadow: 0 0 40px rgba(34, 197, 94, 0.9); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
+        }
+
+        .vs-card { border-radius: 20px; padding: 24px; transition: all 0.3s ease; }
+        details summary::-webkit-details-marker { display: none; }
+        
+        .text-glow-green { text-shadow: 0 0 15px rgba(34, 197, 94, 0.5); }
+
+        .bg-main { background-color: #07121E; }
+        .bg-soft { background-color: #0B1A2B; }
+
+        section {
+            transition: background-color 0.5s ease;
+        }
+        .section-title {
+            font-weight: 900;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            text-align: center;
+            background: linear-gradient(90deg, #22c55e, #86efac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(34,197,94,0.3), 0 0 20px rgba(34,197,94,0.2);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            transition: all 0.3s;
+        }
+
+        .section-title span {
+            display: inline-block;
+            color: #22c55e;
+            text-shadow: 0 0 15px rgba(34,197,94,0.6);
+        }
+        .hero-subtitle-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            line-height: 1.2;
+            text-transform: uppercase;
+            font-size: 2.0rem;
+            color: white;
+            text-shadow: 0 0 2px rgba(255,255,255,0.2);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .hero-subtitle-title span {
+            display: inline-block;
+            color: #22c55e;
+            text-shadow: 0 0 2px rgba(255,255,255,0.2);
+        }
+        
+        .hero-tilt span {
+            display: inline-block;
+            transform: rotate(-1deg);
+        }
+
+        /* Estilo para el botón flotante de WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            z-index: 9999;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .whatsapp-float:active {
+            transform: scale(0.9);
+        }
+        @media (max-width: 640px) {
+            .whatsapp-float {
+                bottom: 15px;
+                right: 15px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+/* --- SECCIÓN MERCADO PAGO: LIMPIEZA Y ESTILOS --- */
+
+
+    </style>
+</head>
+<body>
+
+    <!-- BOTÓN WHATSAPP DUDAS -->
+    <a href="https://wa.me/573227962245?text=Hola,%20tengo%20dudas%20sobre%20la%20formación%20%20" class="whatsapp-float" target="_blank">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.17-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+        <span>¿Dudas? Escríbenos</span>
+    </a>
+
+    <!-- 1️⃣ HERO SECTION -->
+    <section class="bg-main">
+        <header class="relative pt-12 pb-20 px-6 overflow-hidden bg-main">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-green-500/10 via-transparent to-transparent"></div>
+            <div class="content-wrapper relative z-10 text-center">
+                <span class="inline-block bg-green-500/10 text-green-400 text-[10px] font-black tracking-[0.2em] uppercase px-4 py-2 rounded-full border border-green-500/20 mb-6">
+                   Habilidad rentable · Servicio técnico real
+                </span>
+                
+                <h1 class="text-4xl md:text-5xl font-black leading-[1.1] tracking-tighter mb-6 uppercase">
+                    Aprende a reparar celulares <br>
+                    <span class="bg-green-500 text-[#07121E] px-2 py-1 inline-block rotate-[-1deg] text-glow-green">Y COBRA por eso </span>
+                </h1>
+                
+                <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-10 px-4">
+                  Método práctico para generar ingresos reparando celulares,
+                  <span class="text-white font-bold">
+                    incluso si hoy no sabes nada.
+                  </span>
+                </p>
+
+                <!-- CTA PRINCIPAL -->
+                <p class="text-[11px] text-gray-400 mb-4">
+                  +1.200 personas ya recuperaron su inversión con su primera reparación
+                </p>
+                <div class="space-y-4">
+                    <a href="#contenido" class="btn-cta-glow block w-full text-[#07121E] font-black text-xl py-6 rounded-2xl transition-all uppercase tracking-tight leading-none">
+                        Ver cómo funciona el método
+
+               </a>
+               <a href="#precio"
+   class="block w-full text-white/80 font-bold text-sm py-4 rounded-xl border border-white/20 uppercase tracking-widest">
+   Ver precio y acceso inmediato
+</a>
+
+                    
+                    <div class="cta-reinforce mt-2 text-xs flex flex-wrap justify-center gap-2 text-gray-300">
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Sin registro
+    </span>
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        100% Online
+    </span>
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Acceso inmediato
+    </span>
+
+</div>
+                </div>
+            </div>
+
+
+        </header>
+    </section>
+
+    <!-- 2️⃣ LOS DOS CAMINOS -->
+    <section class="py-20 px-6 bg-soft border-t border-white/5">
+        <div class="content-wrapper">
+            <h2 class="hero-subtitle-title !mb-1">
+                Tu futuro en <span>30 días</span>...
+            </h2>
+            <br>
+            <p class="text-gray-400 text-sm md:text-base leading-relaxed text-center max-w-xl mx-auto mb-12">
+                Depende de la decisión <span class="text-white font-bold">que tomes hoy</span>.
+            </p>
+
+            <div class="vs-card border pop-card border-red-900/30 bg-red-900/5 mb-4">
+                <h3 class="text-red-500 font-black uppercase text-xs tracking-widest mb-6 flex items-center gap-2">OPCIÓN A: SEGUIR SOLO</h3>
+                <ul class="space-y-5"> 
+                    <li class="flex items-start gap-3 text-gray-400 text-xs leading-relaxed"> 
+                        <span class="text-red-500 font-bold mt-0.5">✕</span> 
+                        <div><strong class="text-white block">Aprendizaje Frankenstein:</strong> Pierdes horas en YouTube con videos desactualizados y contradictorios.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-400 text-xs leading-relaxed">
+                        <span class="text-red-500 font-bold mt-0.5">✕</span>
+                        <div><strong class="text-white block">Miedo Paralizante:</strong> Rechazas trabajos rentables por miedo a romper una pantalla costosa.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-400 text-xs leading-relaxed"> 
+                        <span class="text-red-500 font-bold mt-0.5">✕</span> 
+                        <div><strong class="text-white block">Dinero Estancado:</strong> Sigues sin ver ingresos reales mientras otros montan sus negocios.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flex justify-center -my-8 relative z-10">
+                <span class="bg-[#07121E] text-white font-black rounded-full w-12 h-12 flex items-center justify-center border-2 border-gray-700 shadow-xl italic text-lg">VS</span>
+            </div>
+
+            <div class="vs-card border pop-card border-green-500/30 bg-green-500/5 mt-4 pt-10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-green-500 text-[#07121E] text-[9px] font-black px-4 py-1.5 uppercase rounded-bl-xl">La Ruta Inteligente</div>
+                <h3 class="text-green-400 font-black uppercase text-xs tracking-widest mb-6 flex items-center gap-2">✅ OPCIÓN B: MÉTODO PRO 2026</h3>
+                <ul class="space-y-5">
+                    <li class="flex items-start gap-3 text-white text-xs leading-relaxed">
+                        <span class="text-green-400 font-black mt-0.5">✔</span> 
+                        <div><strong class="text-green-400 block underline decoration-green-900">Claridad Absoluta:</strong> Un mapa paso a paso para diagnosticar fallas en menos de 15 minutos.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-white text-xs leading-relaxed">
+                        <span class="text-green-400 font-black mt-0.5">✔</span>
+                        <div><strong class="text-green-400 block underline decoration-green-900">Confianza Total:</strong> Abres cualquier equipo sabiendo exactamente qué tornillo quitar.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-white text-xs leading-relaxed">
+                        <span class="text-green-400 font-black mt-0.5">✔</span>
+                        <div><strong class="text-green-400 block underline decoration-green-900">Retorno Inmediato:</strong> Recuperas tu inversión con tu primera reparación de pantalla.</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+       <p class="text-center text-gray-400 text-xs mt-8">
+  Ahora mira cómo funciona exactamente el método por dentro
+</p>
+
+               <div class="cta-reinforce mt-2 text-xs flex flex-wrap justify-center gap-2 text-gray-300">
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Método comprobado
+    </span>
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Explicado paso a paso
+    </span>
+
+
+</div>
+                </div>
+            </div>
+
+    </section>
+
+    <!-- 3️⃣ FILTRO DE IDENTIFICACIÓN -->
+    <section id="parti" class="py-20 px-6 bg-main text-white">
+        <div class="content-wrapper text-center">
+            <span class="text-green-500 font-black text-[10px] tracking-widest uppercase mb-4 block">Sin experiencia previa (100% online)</span>
+            <h2 class="hero-subtitle-title mb-4">Esta formación es <span> para ti si...</span></h2>
+            <div class="space-y-8 text-left">
+                <div class="glass-panel pop-card p-8 border border-white/10 relative overflow-hidden group rounded-2xl" style="background-color: rgba(34,197,94,0.15);">
+                    <div class="absolute -left-0 top-1/2 -translate-y-1/2 text-5xl font-black text-green-500/80 italic transition-all leading-none">01</div>
+                    <div class="relative z-10 pl-14">
+                        <h4 class="font-bold text-green-400 mb-2">Buscas Ingresos Reales</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed mt-1">Necesitas generar dinero extra hoy. Buscas una habilidad práctica para cobrar esta misma semana.</p>
+                    </div>
+                </div>
+                <div class="glass-panel pop-card p-7 border border-white/10 relative overflow-hidden group bg-green-500/10 shadow-lg rounded-2xl">
+                    <div class="absolute -left-0 top-1/2 -translate-y-1/2 text-5xl font-black text-green-500/80 italic transition-all leading-none">02</div>
+                    <div class="relative z-10 pl-14">
+                        <h4 class="font-bold text-green-400 mb-2">Eres el "arregla todo"</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed mt-1">Te gusta la tecnología pero quieres dejar de improvisar y convertirte en un profesional respetado.</p>
+                    </div>
+                </div>
+                <div class="glass-panel pop-card p-7 border border-white/10 relative overflow-hidden group bg-green-500/10 shadow-lg rounded-2xl">
+                    <div class="absolute -left-0 top-1/2 -translate-y-1/2 text-5xl font-black text-green-500/80 italic transition-all leading-none">03</div>
+                    <div class="relative z-10 pl-14">
+                        <h4 class="font-bold text-green-400 mb-2">Quieres Libertad</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed mt-1">Sueñas con montar tu taller, manejar tus horarios y no depender de un jefe nunca más.</p>
+                    </div>
+                </div>
+                <div class="glass-panel pop-card p-7 border border-white/10 relative overflow-hidden group bg-green-500/10 shadow-lg rounded-2xl">
+                    <div class="absolute -left-0 top-1/2 -translate-y-1/2 text-5xl font-black text-green-500/80 italic transition-all leading-none">04</div>
+                    <div class="relative z-10 pl-14">
+                        <h4 class="font-bold text-green-400 mb-2">Estás cansado de aprender por partes</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed mt-1">Quieres un aprendizaje rapido y comprobado para empezar a hacer tus propias reparaciónes.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-gray-400 text-sm md:text-base leading-relaxed text-center max-w-xl mx-auto mt-10 mb-10">
+                Si te reconoces en al menos <span class="text-white font-bold">dos puntos</span>, esta formación fue hecha para ti.
+            </p>
+        </div>
+    </section>
+
+    <!-- 4️⃣ EL MÉTODO -->
+    <section id= "metodo" class="py-20 px-6 bg-soft text-white">
+        <div class="content-wrapper text-center mb-12">
+            <h2 class="hero-subtitle-title">No es solo ver <span class="text-RED-400">videos</span>...</h2>
+            <p class="text-gray-400 text-sm md:text-base leading-relaxed mt-4 max-w-xl mx-auto">
+                Es un sistema de <span class="text-white font-bold">3 pilares</span> que garantizan resultados.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5 max-w-6xl mx-auto">
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6 pop-card">
+                <span class="text-xs text-green-400 font-black tracking-widest">PILAR 1</span>
+                <h3 class="mt-2 font-bold text-lg">Diagnóstico claro</h3>
+                <p class="mt-3 text-sm text-white/80">Identificas la falla real antes de abrir el equipo, sin adivinar ni perder tiempo.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6 pop-card">
+                <span class="text-xs text-green-400 font-black tracking-widest">PILAR 2</span>
+                <h3 class="mt-2 font-bold text-lg">Proceso paso a paso</h3>
+                <p class="mt-3 text-sm text-white/80">Sigues una secuencia lógica que reduce errores y acelera cada reparación.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6 pop-card">
+                <span class="text-xs text-green-400 font-black tracking-widest">PILAR 3</span>
+                <h3 class="mt-2 font-bold text-lg">Criterio profesional</h3>
+                <p class="mt-3 text-sm text-white/80">Sabes cuándo aceptar, cuándo rechazar y cuánto cobrar con seguridad.</p>
+            </div>
+        </div>
+        <!-- CTA llamativo tras Método -->
+
+
+    </section>
+
+    <!-- 5️⃣ TEMARIO -->
+    <section id="contenido" class="py-20 px-6 bg-main text-white">
+        <div class="content-wrapper">
+            <div class="text-center mb-12">
+                <h2 class="hero-subtitle-title mb-4">Lo que aprenderas en este <span>Curso paso a paso</span></h2>
+            </div>
+            <div class="space-y-6">
+                <div class="relative bg-white/5 pop-card p-6 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)] overflow-hidden">
+                    <span class="bg-green-500 text-[#07121E] font-black text-[9px] px-3 py-1 rounded-full uppercase">FASE 0</span>
+                    <h4 class="text-white font-black text-lg uppercase mt-4 mb-2">Introducción y Preparación</h4>
+                    <p class="text-gray-400 text-xs mb-4">Bienvenida, rol del técnico, herramientas básicas, seguridad y salud laboral.</p>
+                    <div class="flex gap-4 items-center">
+                        <span class="text-[10px] font-bold text-blue-400">🎥 6 VIDEOS</span>
+                        <span class="text-[10px] font-bold text-purple-400">📄 4 PDFS</span>
+                    </div>
+                </div>
+                <div class="relative bg-white/5 pop-card p-6 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)] overflow-hidden">
+                    <span class="bg-green-500 text-[#07121E] font-black text-[9px] px-3 py-1 rounded-full uppercase">FASE 1</span>
+                    <h4 class="text-white font-black text-lg uppercase mt-4 mb-2">Fundamentos de la Reparación</h4>
+                    <p class="text-gray-400 text-xs mb-4">Electrónica básica, multímetro, baterías, diagramas y datasheets.</p>
+                    <div class="flex gap-4 items-center">
+                        <span class="text-[10px] font-bold text-blue-400">🎥 18 VIDEOS</span>
+                        <span class="text-[10px] font-bold text-purple-400">📄 12 PDFS</span>
+                    </div>
+                </div>
+                <div class="relative bg-green-500/10 pop-card p-6 rounded-2xl border-2 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.3)] overflow-hidden">
+                    <span class="bg-green-500 text-[#07121E] font-black text-[9px] px-3 py-1 rounded-full uppercase shadow-[0_0_10px_rgba(34,197,94,0.7)]">FASE 2</span>
+                    <h4 class="text-white font-black text-lg uppercase mt-4 mb-2">Diagnóstico y Fallas Comunes</h4>
+                    <p class="text-gray-400 text-xs mb-4">Diagnóstico profesional, software, hardware, módulos de carga y RF.</p>
+                    <div class="flex gap-4 items-center">
+                        <span class="text-[10px] font-bold text-blue-400">🎥 22 VIDEOS</span>
+                        <span class="text-[10px] font-bold text-purple-400">📄 15 PDFS</span>
+                    </div>
+                </div>
+                <div class="relative bg-white/5 pop-card p-6 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)] overflow-hidden">
+                    <span class="bg-green-500 text-[#07121E] font-black text-[9px] px-3 py-1 rounded-full uppercase">FASE 3</span>
+                    <h4 class="text-white font-black text-lg uppercase mt-4 mb-2">Reparaciones Especiales</h4>
+                    <p class="text-gray-400 text-xs mb-4">Equipos mojados, cortocircuitos, flex soldados y ensamble completo.</p>
+                    <div class="flex gap-4 items-center">
+                        <span class="text-[10px] font-bold text-blue-400">🎥 14 VIDEOS</span>
+                        <span class="text-[10px] font-bold text-purple-400">📄 9 PDFS</span>
+                    </div>
+                </div>
+                <div class="relative bg-white/5 pop-card p-6 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)] overflow-hidden">
+                    <span class="bg-green-500 text-[#07121E] font-black text-[9px] px-3 py-1 rounded-full uppercase">FASE 4</span>
+                    <h4 class="text-white font-black text-lg uppercase mt-4 mb-2">Emprende con Reparaciones</h4>
+                    <p class="text-gray-400 text-xs mb-4">Cómo montar tu taller, cobrar bien, atender clientes y gestionar residuos.</p>
+                    <div class="flex gap-4 items-center">
+                        <span class="text-[10px] font-bold text-blue-400">🎥 10 VIDEOS</span>
+                        <span class="text-[10px] font-bold text-purple-400">📄 6 PDFS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CTA secundario / sutil para ir a bonos -->
+<div class="text-center mt-8">
+    <a href="#bonos" class="border border-green-500 text-green-400 font-bold py-3 px-6 rounded-xl uppercase tracking-widest hover:bg-green-500 hover:text-[#07121E] transition-all duration-300">
+        Ver Bonos Exclusivos
+    </a>
+</div>
+
+    </section>
+
+    <!-- 6️⃣ BONOS -->
+  <!-- 6️⃣ BONOS -->
+<section id="bonos" class="py-20 px-6 bg-soft">
+
+        <div class="content-wrapper">
+            <div class="text-center mb-12">
+                <h2 class="hero-subtitle-title mb-4">Y solo hoy llevate estos <span> bonos exclusivos</span></h2>
+            </div>
+            <div class="space-y-6">
+                <div class="relative bg-white/5 pop-card p-6 rounded-2xl border border-white/10 overflow-hidden">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="bg-green-500 text-[#07121E] font-black text-[9px] px-3 py-1 rounded-full uppercase">Regalo #1</span>
+                        <span class="text-red-500 text-[10px] font-black line-through">$28.000 COP</span>
+                    </div>
+                    <h5 class="text-white font-black text-base uppercase">Especialización Software Pro</h5>
+                    <p class="text-green-400 text-[11px] font-bold mb-3">¡HOY:GRATIS!</p>
+                    <p class="text-gray-400 text-xs">Más de <span class="text-white font-bold">20 Videos</span> sobre flasheo y recuperación.</p>
+                </div>
+                <div class="relative bg-white/5 pop-card p-6 rounded-2xl border border-white/10 overflow-hidden">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="bg-green-500 text-[#07121E] font-black text-[9px] px-3 py-1 rounded-full uppercase">Regalo #2</span>
+                        <span class="text-red-500 text-[10px] font-black line-through">$32.000COP</span>
+                    </div>
+                    <h5 class="text-white font-black text-base uppercase">Inmersión Hardware Premium</h5>
+                    <p class="text-green-400 text-[11px] font-bold mb-3">¡HOY:GRATIS!</p>
+                    <p class="text-gray-400 text-xs">Más de <span class="text-white font-bold">25 Videos</span> de refuerzo en fallas físicas críticas.</p>
+                </div>
+                <div class="relative bg-gradient-to-br from-green-600/30 to-green-900/60 pop-card p-6 rounded-2xl border-2 border-green-500 shadow-2xl overflow-hidden">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="bg-yellow-400 text-[#07121E] font-black text-[9px] px-3 py-1 rounded-full uppercase">Bono VIP</span>
+                        <span class="text-white/40 text-[10px] font-black line-through italic">$40.000 COP</span>
+                    </div>
+                    <h5 class="text-white font-black text-base uppercase italic tracking-tighter">BIBLIOTECA MAESTRA DE PLANOS</h5>
+                    <p class="text-yellow-400 text-[11px] font-bold mb-3">¡INCLUIDO SOLO POR HOY!</p>
+                    <p class="text-gray-300 text-xs">Acceso a esquemáticos y simbología técnica avanzada.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CTA principal muy llamativo -->
+<div class="text-center mt-10">
+    <a href="#precio" class="btn-cta-glow inline-block text-[#07121E] font-black text-3xl py-6 px-12 rounded-3xl uppercase tracking-tight animate-pulse">
+        Ver TODO lo que recibes hoy
+    </a>
+</div>
+<div class="cta-reinforce mt-2 text-xs flex flex-wrap justify-center gap-2 text-gray-300">
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Curso completo + Bonos
+    </span>
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Acceso inmediato
+    </span>
+
+</div>
+
+
+    </section>
+
+    
+    <!-- 8️⃣ TESTIMONIOS -->
+<section class="py-16 px-5 bg-main border-t border-white/5">
+  <div class="content-wrapper">
+    <h2 class="hero-subtitle-title mb-7">
+    Lo que dicen los que <span> ya empezaron</span>...
+</h2>
+
+    <div class="space-y-6">
+      <!-- Tarjeta 1 -->
+      <div class="glass-panel p-5 relative text-left bg-white/5 border border-white/10 rounded-2xl shadow-lg transition-all hover:scale-105 hover:shadow-2xl">
+        <div class="flex text-yellow-400 text-xs mb-2">⭐⭐⭐⭐⭐</div>
+        <p class="text-gray-200 text-sm italic mb-4">"En la primera semana ya hice mi primera reparación pagada. No creí que fuera tan directo, pero el módulo 2 se pagó solo."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 font-bold text-xs">CM</div>
+          <div>
+            <p class="font-bold text-xs text-white">Carlos M.</p>
+            <p class="text-[10px] text-gray-400">Alumno verificado</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2 -->
+      <div class="glass-panel p-5 relative text-left bg-white/5 border border-white/10 rounded-2xl shadow-lg transition-all hover:scale-105 hover:shadow-2xl">
+        <div class="flex text-yellow-400 text-xs mb-2">⭐⭐⭐⭐⭐</div>
+        <p class="text-gray-200 text-sm italic mb-4">"Dejé de ver videos sueltos y por fin entendí todo el proceso de diagnóstico. Ahora sé qué cobrar y por qué."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-xs">AR</div>
+          <div>
+            <p class="font-bold text-xs text-white">Andrés R.</p>
+            <p class="text-[10px] text-gray-400">Alumno verificado</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3 -->
+      <div class="glass-panel p-5 relative text-left bg-white/5 border border-white/10 rounded-2xl shadow-lg transition-all hover:scale-105 hover:shadow-2xl">
+        <div class="flex text-yellow-400 text-xs mb-2">⭐⭐⭐⭐⭐</div>
+        <p class="text-gray-200 text-sm italic mb-4">
+          "Pensé que era otro curso más, pero la forma en que explican el diagnóstico me quitó el miedo de dañar equipos. Ahora trabajo con más seguridad."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-xs">JL</div>
+          <div>
+            <p class="font-bold text-xs text-white">Julián L.</p>
+            <p class="text-[10px] text-gray-400">Alumno inicial</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+   <!-- 7️⃣ OFERTA FINAL -->
+<section id="precio" class="py-24 px-6 bg-soft">
+    <div class="content-wrapper">
+        <div class="bg-[#07121E] rounded-[40px] overflow-hidden border-4 border-green-500 shadow-2xl">
+            <div class="bg-green-500 py-8 text-center">
+                <h2 class="text-white font-black text-3xl uppercase tracking-tighter">Lo que te llevas hoy</h2>
+            </div>
+            <div class="p-8 text-white">
+                <ul class="space-y-4 mb-10">
+                    <li class="flex justify-between items-center border-b border-white/10 pb-3 text-xs">
+                        <span class="text-green-400 font-black uppercase">✔ Curso Maestro Completo</span>
+                        <span class="line-through font-bold text-white/50">$59.900 COP</span>
+                    </li>
+                    <li class="flex justify-between items-center border-b border-white/10 pb-3 text-xs">
+                        <span class="text-green-400 font-black uppercase">✔ 🎁 Bono: Software Master</span>
+                        <span class="line-through font-bold text-white/50">$28.00 COP</span>
+                    </li>
+                    <li class="flex justify-between items-center border-b border-white/10 pb-3 text-xs">
+                        <span class="text-green-400 font-black uppercase">✔ 🎁 Bono: Hardware Pro</span>
+                        <span class="line-through font-bold text-white/50">$32.000 COP</span>
+                    </li>
+                    <li class="flex justify-between items-center border-b border-white/10 pb-3 text-xs">
+                        <span class="text-green-400 font-black uppercase">✔ 🎁VIP: Biblioteca de Planos</span>
+                        <span class="line-through font-bold text-white/50">$40.000 COP</span>
+                    </li>
+                </ul>
+                <div class="text-center mb-10">
+                    <p class="text-white/70 text-[10px] uppercase font-black tracking-[0.3em]">
+                        Valor Real: <span class="line-through text-red-500">$159.900 COP</span>
+                    </p>
+                    <div class="flex justify-center items-start gap-1 mt-6">
+                        <span class="text-2xl font-black mt-3 text-white/50">$</span>
+                        <span class="text-7xl font-black text-white tracking-tighter leading-none">39</span>
+                        <div class="flex flex-col items-start mt-4">
+                            <span class="text-3xl font-black text-white">.900</span>
+                            <span class="text-[10px] font-bold text-white/70 uppercase">Pesos Colombianos</span>
+                        </div>
+                    </div>
+                </div>
+              <button onclick="openCheckout()"
+  class="btn-cta-glow block w-full text-[#07121E] text-center py-7 rounded-3xl font-black text-2xl uppercase">
+  Comprar ahora
+</button>
+
+
+                <div class="cta-reinforce mt-2 text-xs flex flex-wrap justify-center gap-2 text-gray-300">
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Pago seguro (Bancolombia, PSE, Tarjetas, Efecty)
+    </span>
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Garantía 7 días
+    </span>
+    <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Acceso inmediato
+    </span>
+</div>
+     <div class="glass-panel p-8 mt-0 text-center">
+                <p class="text-gray-400 text-xs uppercase tracking-widest mb-3">
+                    ESTA OFERTA TERMINA EN:
+                </p>
+
+                <div class="flex justify-center items-center gap-4">
+                    <style>
+                        .count-box {
+                            position: relative;
+                            background-color: #0B1A2B;
+                            border-radius: 18px;
+                            width: 90px;
+                            height: 90px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            border: 1px solid rgba(255, 255, 255, 0.15);
+                            box-shadow: 0 0 35px rgba(34, 197, 94, 0.35),
+            inset 0 0 20px rgba(34, 197, 94, 0.15);
+
+                        }
+                        .count-box::before, .count-box::after {
+                            content: "";
+                            position: absolute;
+                            top: 10%;
+                            bottom: 10%;
+                            width: 6px;
+                            background: linear-gradient(to bottom, transparent, rgba(34, 197, 94, 0.75), transparent);
+
+                            filter: blur(6px);
+                            opacity: 0.9;
+                        }
+                        .count-box::before { left: -6px; }
+                        .count-box::after { right: -6px; }
+                        .glass-panel { background: transparent !important; }
+                        .count-number { font-size: 34px; font-weight: 900; color: white; line-height: 1; }
+                        .count-label { font-size: 9px; letter-spacing: 2px; color: #9ca3af; margin-top: 6px; }
+                        .count-separator { font-size: 32px; font-weight: 900; color: #color: #f97316;
+; margin-bottom: 12px; }
+                    </style>
+
+                    <div class="count-box">
+                        <span id="hours" class="count-number">00</span>
+                        <p class="count-label">HORAS</p>
+                    </div>
+                    <span class="count-separator">:</span>
+                    <div class="count-box">
+                        <span id="minutes" class="count-number">00</span>
+                        <p class="count-label">MINUTOS</p>
+                    </div>
+                    <span class="count-separator">:</span>
+                    <div class="count-box">
+                        <span id="seconds" class="count-number">00</span>
+                        <p class="count-label">SEGUNDOS</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 10️⃣ FAQ -->
+<section class="py-20 px-6 bg-main border-t border-white/5">
+  <div class="content-wrapper">
+    <h2 class="hero-subtitle-title text-center mb-12 text-white uppercase italic tracking-tighter">
+      Preguntas frecuentes
+    </h2>
+
+    <div class="space-y-4">
+
+      <!-- Presencial -->
+      <details class="group bg-white/5 border border-white/10 rounded-2xl p-5">
+        <summary class="list-none flex justify-between items-center cursor-pointer font-bold text-white text-sm">
+          ¿El curso es presencial?
+          <span class="text-green-500 transition-transform group-open:rotate-180">▼</span>
+        </summary>
+        <p class="text-gray-400 text-[11px] mt-4 leading-relaxed">
+          No. El curso es 100% online y puedes hacerlo desde cualquier lugar. Accedes a todo el contenido desde tu celular o computadora, a tu ritmo y sin horarios.
+        </p>
+      </details>
+
+      <!-- Herramientas -->
+      <details class="group bg-white/5 border border-white/10 rounded-2xl p-5">
+        <summary class="list-none flex justify-between items-center cursor-pointer font-bold text-white text-sm">
+          ¿Necesito herramientas para empezar?
+          <span class="text-green-500 transition-transform group-open:rotate-180">▼</span>
+        </summary>
+        <p class="text-gray-400 text-[11px] mt-4 leading-relaxed">
+          No necesitas tener herramientas desde el primer día. En el curso te mostramos cuáles son las básicas, cuáles puedes conseguir a bajo costo y en qué momento realmente vale la pena invertir.
+        </p>
+      </details>
+
+      <!-- Pago seguro -->
+      <details class="group bg-white/5 border border-white/10 rounded-2xl p-5">
+        <summary class="list-none flex justify-between items-center cursor-pointer font-bold text-white text-sm">
+          ¿El pago es seguro?
+          <span class="text-green-500 transition-transform group-open:rotate-180">▼</span>
+        </summary>
+        <p class="text-gray-400 text-[11px] mt-4 leading-relaxed">
+          Sí. El pago se realiza a través de Mercado Pago, una de las plataformas más seguras de Latinoamérica. Puedes pagar con tarjeta, transferencia o los métodos disponibles en tu país.
+        </p>
+      </details>
+
+      <!-- Acceso inmediato -->
+      <details class="group bg-white/5 border border-white/10 rounded-2xl p-5">
+        <summary class="list-none flex justify-between items-center cursor-pointer font-bold text-white text-sm">
+          ¿Cuándo recibo el acceso al curso?
+          <span class="text-green-500 transition-transform group-open:rotate-180">▼</span>
+        </summary>
+        <p class="text-gray-400 text-[11px] mt-4 leading-relaxed">
+          El acceso es inmediato. Apenas se confirma tu pago, recibes el acceso completo al curso y a todos los bonos.
+        </p>
+      </details>
+
+      <!-- Precio -->
+      <details class="group bg-white/5 border border-white/10 rounded-2xl p-5">
+        <summary class="list-none flex justify-between items-center cursor-pointer font-bold text-white text-sm">
+          ¿Cuál es el precio del curso?
+          <span class="text-green-500 transition-transform group-open:rotate-180">▼</span>
+        </summary>
+        <p class="text-gray-400 text-[11px] mt-4 leading-relaxed">
+          El precio es de $39.900 COP en un solo pago. No hay IVA adicional, mensualidades ni cobros ocultos.
+        </p>
+      </details>
+
+    </div>
+  </div>
+
+    <div class="content-wrapper text-center mt-8">
+
+    <h3 class="text-white text-2xl font-black mb-4 uppercase tracking-tight">
+      ¿Listo para empezar?
+    </h3>
+
+   <p class="text-gray-400 text-sm mb-5 leading-relaxed">
+  Accede ahora al método completo y 
+  <span class="text-white font-bold whitespace-nowrap">empieza a reparar celulares</span>
+</p>
+
+   <button onclick="openCheckout()"
+  class="btn-cta-glow block w-full text-[#07121E] text-center py-7 rounded-3xl font-black text-2xl uppercase">
+  Acceder ahora al curso
+</button>
+
+
+    <!-- Refuerzos -->
+    <div class="mt-5 flex flex-wrap justify-center gap-4 text-[12px] text-gray-300">
+      
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Pago seguro con Mercado Pago
+      </span>
+
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Acceso inmediato
+      </span>
+
+      <span class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM7 11l5-5-1-1-4 4-2-2-1 1 3 3z"/>
+        </svg>
+        Un solo pago
+      </span>
+
+    </div>
+
+  </div>
+</section>
+<!-- CHECKOUT EMBEBIDO MERCADO PAGO -->
+<div id="checkout-overlay" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm">
+  <div id="checkout-modal" class="absolute bg-main w-full md:max-w-md md:rounded-3xl md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 bottom-0 rounded-t-3xl h-[92vh] overflow-y-auto p-6">
+    
+    <div id="checkout-main-content" class="hidden">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-white text-xl font-bold">Completa tu pago de forma segura</h2>
+        <button id="close-checkout" onclick="closeCheckout()" class="text-white text-2xl font-bold">×</button>
+      </div>
+
+      <div class="text-center mb-5">
+        <span class="text-gray-400 text-xs uppercase tracking-wide">Precio final</span>
+        <p class="text-4xl font-extrabold text-green-400 mt-1">$39.900</p>
+        <p class="text-gray-500 text-xs mt-1">Pago único · Sin cargos adicionales</p>
+      </div>
+    </div>
+
+    <div id="paymentBrick_container" class="rounded-2xl"></div>
+
+    <div id="checkout-trust-badges" class="mt-4 flex flex-col items-center gap-2 text-xs text-gray-400 text-center hidden">
+      <span>🔒 Pago 100% seguro procesado por Mercado Pago</span>
+      <span> Acceso inmediato tras confirmar el pago</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-[#0B1A2B] text-white py-8 mt-12 border-t border-white/10">
+    <div class="content-wrapper text-center space-y-2">
+        <p class="font-bold text-lg">Nexo Digital</p>
+        <a href="https://wa.me/573227962245" class="text-green-400 font-semibold hover:underline" target="_blank">
+            +57 322 796 2245
+        </a>
+        <p class="text-xs text-gray-400 mt-2">© 2026 Nexo Digital. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+    <script>
+        const endDate = new Date("2026-02-01T23:59:59").getTime();
+        const timer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = endDate - now;
+            if (distance < 0) { clearInterval(timer); return; }
+            const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((distance / (1000 * 60)) % 60);
+            const seconds = Math.floor((distance / 1000) % 60);
+            document.getElementById("hours").innerText = String(hours).padStart(2, "0");
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
+        }, 1000);
+
+        
+    </script>
+
+
+
+
+   <script src="https://sdk.mercadopago.com/js/v2"></script>
+<script src="checkout.js"></script>
+
+<script>
+  window.openCheckout = function () {
+    const overlay = document.getElementById("checkout-overlay");
+    if (!overlay) return;
+
+    overlay.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+
+    setTimeout(() => {
+      renderPaymentBrick();
+    }, 200);
+  };
+
+  window.closeCheckout = function () {
+    const overlay = document.getElementById("checkout-overlay");
+    overlay.classList.add("hidden");
+    document.body.style.overflow = "";
+
+    destroyPaymentBrick();
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const closeBtn = document.getElementById("close-checkout");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", window.closeCheckout);
+    }
+  });
+</script>
+
+
+
+
+</body>
+</html>
