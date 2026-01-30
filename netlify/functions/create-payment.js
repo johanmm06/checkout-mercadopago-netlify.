@@ -1,40 +1,64 @@
-import mercadopago from "mercadopago";
-
-mercadopago.configure({
-  access_token: process.env.MP_ACCESS_TOKEN
-});
+import { MercadoPagoConfig, Payment } from 'mercadopago';
 
 export const handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
-  }
-
-  try {
-    const data = JSON.parse(event.body);
-
-    const payment = await mercadopago.payment.save({
-      transaction_amount: data.transaction_amount,
-      token: data.token,
-      description: "Acceso al curso",
-      installments: 1,
-      payment_method_id: data.payment_method_id,
-      payer: {
-        email: data.payer.email
-      }
-    });
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        status: payment.status
-      })
+    // 1. Manejo de CORS
+    const headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Content-Type": "application/json"
     };
 
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message })
-    };
-  }
+    if (event.httpMethod === "OPTIONS") {
+        return { statusCode: 200, headers, body: "OK" };
+    }
+
+    if (event.httpMethod !== "POST") {
+        return { statusCode: 405, headers, body: "Method Not Allowed" };
+    }
+
+    try {
+        // USAMOS LA VARIABLE QUE TIENES EN NETLIFY
+        const client = new MercadoPagoConfig({ 
+            accessToken: process.env.MERCADO_PAGO_SAMPLE_ACCESS_TOKEN 
+        });
+        
+        const payment = new Payment(client);
+        const data = JSON.parse(event.body);
+
+        // Estructura obligatoria para la Versión 2.x
+        const body = {
+            transaction_amount: Number(data.transaction_amount),
+            token: data.token,
+            description: "Acceso al curso Técnico Elite",
+            installments: Number(data.installments || 1),
+            payment_method_id: data.payment_method_id,
+            issuer_id: data.issuer_id,
+            payer: {
+                email: data.payer.email
+            }
+        };
+
+        const response = await payment.create({ body });
+
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+                status: response.status,
+                id: response.id
+            })
+        };
+
+    } catch (error) {
+        console.error("❌ Error MP:", error);
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ 
+                error: error.message,
+                details: error.cause 
+            })
+        };
+    }
 };
-
