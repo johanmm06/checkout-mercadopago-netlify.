@@ -71,7 +71,6 @@ async function renderPaymentBrick() {
             // dentro de settings.callbacks
 onSubmit: async ({ formData }) => {
   try {
-    // formData viene del Brick. Añadimos el monto exacto para el backend.
     const payload = {
       ...formData,
       transaction_amount: 39900
@@ -84,28 +83,38 @@ onSubmit: async ({ formData }) => {
     });
 
     const result = await response.json();
-    console.log("💳 Resultado del create-payment:", result);
+    console.log("💳 Resultado:", result);
 
-    // Manejo claro según estado (redirige solo si aprobado)
-    if (result && result.status === "approved") {
-      // pago aprobado → agradecimiento
+    // 1. CASO APROBADO (Tarjetas)
+    if (result.status === "approved") {
       window.location.href = "https://accesocursocel.netlify.app/";
-    } else if (result && result.status === "in_process") {
-      // pendiente → página pendiente (opcional)
-      window.location.href = "https://accesocursocel.netlify.app/pendiente";
-    } else {
-      // fallo / cualquier otra cosa → mostrar error o cerrar modal
-      alert("No se pudo procesar el pago. Intenta con otra tarjeta o método.");
-      // puedes cerrar el modal si quieres
-      // closeCheckout();
+      return;
     }
+
+    // 2. CASO PENDIENTE (PSE / Efecty / Transferencia)
+    if (result.status === "pending" || result.status === "in_process") {
+      
+      // Si es PSE, buscamos la URL de redirección al banco
+      const externalUrl = result.point_of_interaction?.transaction_data?.ticket_url;
+
+      if (externalUrl) {
+        // Redirigir al usuario a PSE o al recibo de Efecty
+        window.location.href = externalUrl;
+      } else {
+        // Si no hay URL, solo vamos a la página de pendiente
+        window.location.href = "https://accesocursocel.netlify.app/pendiente";
+      }
+      return;
+    }
+
+    // 3. CASO RECHAZADO
+    alert("El pago fue rechazado o falló. Intenta de nuevo.");
 
   } catch (err) {
     console.error("Error en onSubmit:", err);
-    alert("Error procesando el pago, revisa la consola.");
+    alert("Hubo un error técnico al procesar el pago.");
   }
 },
-
 
         },
     };
