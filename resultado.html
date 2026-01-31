@@ -1,137 +1,146 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acceso confirmado</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de tu compra</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
-<style>
-body{
-font-family:'Inter',sans-serif;
-background:#07121E;
-color:white;
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-.content-wrapper{max-width:520px;width:100%;}
-.glass-panel{
-background:rgba(255,255,255,0.04);
-backdrop-filter:blur(10px);
-border-radius:32px;
-border:1px solid rgba(255,255,255,0.08);
-}
-.btn-cta{
-background:#22c55e;
-color:#07121E;
-font-weight:900;
-box-shadow:0 0 25px rgba(34,197,94,.45);
-transition:.3s;
-}
-.btn-cta:hover{
-transform:translateY(-2px);
-box-shadow:0 0 40px rgba(34,197,94,.75);
-}
-.step{
-background:rgba(34,197,94,.15);
-color:#22c55e;
-width:28px;
-height:28px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-font-weight:900;
-font-size:12px;
-border:1px solid rgba(34,197,94,.35);
-flex-shrink:0;
-}
-</style>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #07121E;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .content-wrapper { max-width: 520px; width: 100%; }
+        .glass-panel {
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .btn-cta {
+            background: #22c55e;
+            color: #07121E;
+            font-weight: 900;
+            box-shadow: 0 0 25px rgba(34,197,94,.45);
+            transition: .3s;
+        }
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(34,197,94,.75);
+        }
+        .step {
+            background: rgba(34,197,94,.15);
+            color: #22c55e;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 900;
+            font-size: 12px;
+            border: 1px solid rgba(34,197,94,.35);
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 
 <body class="px-6 py-12">
 
-<div class="content-wrapper">
+    <div class="content-wrapper">
 
-<!-- HERO -->
-<div class="text-center mb-10">
-<div class="inline-flex items-center justify-center w-20 h-20 bg-green-500/10 rounded-full mb-8 border border-green-500/20">
-✓
-</div>
+        <div class="text-center mb-10">
+            <div id="icon-container" class="inline-flex items-center justify-center w-20 h-20 bg-green-500/10 rounded-full mb-8 border border-green-500/20">
+                <span id="main-icon" class="text-2xl">✓</span>
+            </div>
 
-<h1 class="text-3xl font-black uppercase tracking-tight mb-4">
-Pago confirmado <br>
-<span class="text-green-500">Activación de acceso</span>
-</h1>
+            <h1 id="main-title" class="text-3xl font-black uppercase tracking-tight mb-4">
+                Pago confirmado <br>
+                <span class="text-green-500">Activación de acceso</span>
+            </h1>
 
-<p class="text-gray-400 text-sm">
-Tu compra fue procesada correctamente.<br>
-El acceso se entrega de forma personalizada por nuestro canal de soporte.
-</p>
-</div>
+            <p id="main-description" class="text-gray-400 text-sm">
+                Tu compra fue procesada correctamente.<br>
+                El acceso se entrega de forma personalizada por nuestro canal de soporte.
+            </p>
+        </div>
 
-<!-- INSTRUCCIONES -->
-<div class="glass-panel p-8 mb-8">
-<h2 class="text-xs font-black tracking-[0.2em] text-gray-500 uppercase mb-6 text-center">
-Paso final
-</h2>
+        <div id="efecty-panel" class="hidden glass-panel p-6 mb-8 border-blue-500/30 bg-blue-500/5 text-center">
+            <p class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Código de pago Efecty</p>
+            <div id="payment-code" class="text-4xl font-black tracking-widest text-white mb-2">000000</div>
+            <p class="text-[10px] text-gray-500">Dicta este número en cualquier punto Efecty</p>
+        </div>
 
-<div class="space-y-6">
+        <div class="glass-panel p-8 mb-8">
+            <h2 id="steps-title" class="text-xs font-black tracking-[0.2em] text-gray-500 uppercase mb-6 text-center">
+                Paso final
+            </h2>
 
-<div class="flex gap-4">
-<div class="step">1</div>
-<div>
-<p class="font-bold text-sm">Guarda nuestro número de WhatsApp</p>
-<p class="text-gray-400 text-xs mt-1">
-Este es el <strong>soporte oficial</strong> y el medio por donde activamos tu acceso al contenido.
-</p>
-</div>
-</div>
+            <div class="space-y-6">
+                <div class="flex gap-4">
+                    <div class="step">1</div>
+                    <div>
+                        <p id="step1-title" class="font-bold text-sm">Guarda nuestro número de WhatsApp</p>
+                        <p id="step1-desc" class="text-gray-400 text-xs mt-1">Este es el soporte oficial para activar tu acceso.</p>
+                    </div>
+                </div>
 
-<div class="flex gap-4">
-<div class="step">2</div>
-<div>
-<p class="font-bold text-sm">Escríbenos por WhatsApp</p>
-<p class="text-gray-400 text-xs mt-1">
-Al presionar el botón de abajo se abrirá WhatsApp.  
-Envía el mensaje con el texto: <strong>“Mi correo es:”</strong> y tu correo de Gmail.
-</p>
-</div>
-</div>
+                <div class="flex gap-4">
+                    <div class="step">2</div>
+                    <div>
+                        <p id="step2-title" class="font-bold text-sm">Escríbenos por WhatsApp</p>
+                        <p id="step2-desc" class="text-gray-400 text-xs mt-1">Presiona el botón de abajo y envía tu correo de Gmail.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="flex gap-4">
-<div class="step">3</div>
-<div>
-<p class="font-bold text-sm">Activamos tu acceso y soporte</p>
-<p class="text-gray-400 text-xs mt-1">
-En un plazo aproximado de <strong>10 a 15 minutos</strong> recibirás el acceso completo a la plataforma  
-y este mismo número quedará como tu canal de soporte.
-</p>
-</div>
-</div>
+        <div class="text-center">
+            <a id="whatsapp-btn" href="https://wa.me/573227962245?text=Mi%20correo%20es%3A%20" target="_blank"
+                class="btn-cta block w-full text-xl py-6 rounded-2xl uppercase tracking-tight">
+                Escribir al soporte
+            </a>
+            <p class="text-gray-500 text-[11px] mt-8 leading-relaxed">
+                Este botón abre directamente WhatsApp para activar tu acceso.
+            </p>
+        </div>
+    </div>
 
-</div>
-</div>
+    <script>
+        // Lógica para detectar si es Efecty o Pago Confirmado
+        const params = new URLSearchParams(window.location.search);
+        const estado = params.get('estado');
+        const referencia = params.get('referencia');
 
-<!-- CTA -->
-<div class="text-center">
-<a href="https://wa.me/573227962245?text=Mi%20correo%20es%3A%20"
-target="_blank"
-class="btn-cta block w-full text-xl py-6 rounded-2xl uppercase tracking-tight">
-Escribir al soporte por WhatsApp
-</a>
+        if (estado === 'pendiente' && referencia) {
+            // 1. Cambiar Títulos
+            document.getElementById('main-title').innerHTML = 'Pago Pendiente <br><span class="text-blue-500">Generado con éxito</span>';
+            document.getElementById('main-description').innerHTML = 'Tu orden ha sido generada.<br>Realiza el pago para activar tu cuenta.';
+            
+            // 2. Mostrar Panel de Efecty
+            document.getElementById('efecty-panel').classList.remove('hidden');
+            document.getElementById('payment-code').innerText = referencia;
+            
+            // 3. Cambiar Icono a un Reloj
+            document.getElementById('main-icon').innerText = '🕒';
+            document.getElementById('icon-container').classList.replace('bg-green-500/10', 'bg-blue-500/10');
+            document.getElementById('icon-container').classList.replace('border-green-500/20', 'border-blue-500/20');
 
-<p class="text-gray-500 text-[11px] mt-8 leading-relaxed">
-Este botón abre directamente WhatsApp para activar tu acceso.<br>
-Guarda el número: será tu contacto de soporte para cualquier duda futura.
-</p>
-</div>
-
-</div>
-
+            // 4. Ajustar Instrucciones
+            document.getElementById('step2-desc').innerHTML = `Envía el mensaje: <b>"Ya tengo mi código de Efecty: ${referencia}"</b>`;
+            
+            // 5. Ajustar Botón WhatsApp
+            const msg = encodeURIComponent(`Hola! Ya generé mi código de Efecty: ${referencia}. ¿Qué sigue?`);
+            document.getElementById('whatsapp-btn').href = `https://wa.me/573227962245?text=${msg}`;
+        }
+    </script>
 </body>
 </html>
