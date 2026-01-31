@@ -86,26 +86,33 @@ onSubmit: async ({ formData }) => {
 
         console.log("3. Respuesta recibida del servidor, procesando JSON...");
         const result = await response.json();
+        // ... (Paso 4: Resultado final)
         console.log("4. Resultado final:", result);
 
-        if (result.error) {
-            console.error("❌ Error devuelto por MP:", result.error);
-            alert("Error: " + result.error);
-            return;
-        }
+        // BUSCADOR DE LINK DE PSE (Intenta varias rutas)
+        const linkPSE = result.point_of_interaction?.transaction_data?.ticket_url || 
+                        result.transaction_details?.external_resource_url ||
+                        result.point_of_interaction?.transaction_data?.external_resource_url;
 
-        // Redirecciones (PSE / EFECTY)
-        const linkPSE = result.point_of_interaction?.transaction_data?.ticket_url;
         const referenciaEfecty = result.transaction_details?.verification_code;
 
+        // Caso Efecty
         if (result.payment_method_id === 'efecty' && referenciaEfecty) {
+            console.log("🚀 Redirigiendo a página de Efecty...");
             window.location.href = `/resultado?estado=pendiente&referencia=${referenciaEfecty}`;
             return;
         }
 
+        // Caso PSE
         if (linkPSE) {
-            console.log("🚀 Redirigiendo a PSE...");
-            window.location.href = linkPSE;
+            console.log("🚀 Link de PSE encontrado. Redirigiendo a:", linkPSE);
+            window.location.href = linkPSE; // ESTO ABRE EL BANCO
+            return;
+        }
+
+        // Caso Tarjeta Aprobada
+        if (result.status === "approved") {
+            window.location.href = "/resultado";
             return;
         }
 
@@ -145,12 +152,39 @@ window.openCheckout = function () {
     renderPaymentBrick();
 };
 
+// ================================
+// EXPONER FUNCIONES AL HTML
+// ================================
+window.openCheckout = function () {
+    const overlay = document.getElementById("checkout-overlay");
+    const whatsappBtn = document.querySelector(".whatsapp-float"); // Detecta el botón de WhatsApp
+    
+    if (!overlay) return;
+
+    overlay.classList.remove("hidden");
+    document.body.style.overflow = "hidden"; // Bloquea el scroll del fondo
+    
+    // 🕵️ Ocultar WhatsApp al abrir el checkout
+    if (whatsappBtn) {
+        whatsappBtn.style.display = "none";
+    }
+
+    renderPaymentBrick();
+};
+
 window.closeCheckout = function () {
     const overlay = document.getElementById("checkout-overlay");
+    const whatsappBtn = document.querySelector(".whatsapp-float");
+    
     if (!overlay) return;
 
     overlay.classList.add("hidden");
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = "auto"; // Libera el scroll
+    
+    // 🟢 Mostrar WhatsApp de nuevo al cerrar
+    if (whatsappBtn) {
+        whatsappBtn.style.display = "flex";
+    }
 
     destroyPaymentBrick();
 };
