@@ -82,30 +82,25 @@ onSubmit: async ({ formData }) => {
       body: JSON.stringify(payload)
     });
 
-    const result = await response.json();
-    console.log("💳 Resultado:", result);
+    // ... dentro de tu fetch a la función de Netlify ...
+const result = await response.json();
 
-    // 1. CASO APROBADO (Tarjetas)
-    if (result.status === "approved") {
-      window.location.href = "https://accesocursocel.netlify.app/";
-      return;
-    }
+if (result.status === "pending" || result.status === "in_process") {
+    // 🔗 ESTA ES LA CLAVE: Buscamos la URL de redirección
+    const redirectUrl = result.point_of_interaction?.transaction_data?.ticket_url;
 
-    // 2. CASO PENDIENTE (PSE / Efecty / Transferencia)
-    if (result.status === "pending" || result.status === "in_process") {
-      
-      // Si es PSE, buscamos la URL de redirección al banco
-      const externalUrl = result.point_of_interaction?.transaction_data?.ticket_url;
-
-      if (externalUrl) {
-        // Redirigir al usuario a PSE o al recibo de Efecty
-        window.location.href = externalUrl;
-      } else {
-        // Si no hay URL, solo vamos a la página de pendiente
+    if (redirectUrl) {
+        // Opción A: Abrir en la misma pestaña (Recomendado para PSE)
+        window.location.href = redirectUrl; 
+        
+        // Opción B: Abrir en pestaña nueva (Útil si quieres que tu web siga abierta)
+        // window.open(redirectUrl, '_blank');
+    } else {
+        // Si por alguna razón no hay URL, mandamos a tu página de espera
         window.location.href = "https://accesocursocel.netlify.app/pendiente";
-      }
-      return;
     }
+    return;
+}
 
     // 3. CASO RECHAZADO
     alert("El pago fue rechazado o falló. Intenta de nuevo.");
