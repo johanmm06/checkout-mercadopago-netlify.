@@ -15,35 +15,41 @@ export const handler = async (event) => {
         const payment = new Payment(client);
         const data = JSON.parse(event.body);
 
-        // Limpiamos el objeto según el método de pago
+        // Capturar IP (Obligatorio para PSE)
+        const ip = event.headers["x-forwarded-for"]?.split(",")[0] || 
+                   event.headers["client-ip"] || 
+                   "186.155.10.10"; 
+
         const paymentData = {
             transaction_amount: Number(data.transaction_amount),
             description: "Acceso al curso Técnico Elite",
             payment_method_id: data.payment_method_id,
             payer: {
-                email: data.payer.email,
+                email: data.payer?.email,
                 identification: {
-                    type: data.payer.identification.type,
-                    number: data.payer.identification.number
+                    type: data.payer?.identification?.type || "CC",
+                    number: data.payer?.identification?.number || "0"
                 },
-                entity_type: data.payer.entity_type || "individual",
+                entity_type: data.payer?.entity_type || "individual",
             },
-            callback_url: "https://accesocursocel.netlify.app/resultado",
+            additional_info: {
+                ip_address: ip
+            },
+            callback_url: "https://cursonexodigital.netlify.app/resultado",
         };
 
-        // Si es tarjeta, agregamos el token. Si es PSE/Efecty, NO.
+        // Si es Tarjeta
         if (data.token) {
             paymentData.token = data.token;
             paymentData.installments = Number(data.installments);
         }
 
-        // Para PSE es obligatorio el issuer_id
-        if (data.issuer_id) {
-            paymentData.issuer_id = data.issuer_id;
+        // Si es PSE
+        if (data.payment_method_id === 'pse') {
+            paymentData.transaction_details = {
+                financial_institution: data.transaction_details?.financial_institution
+            };
         }
-
-        // Metadata para control tuyo
-        paymentData.metadata = { curso: "Tecnico Elite" };
 
         const response = await payment.create({ body: paymentData });
 
@@ -54,13 +60,12 @@ export const handler = async (event) => {
         };
 
     } catch (error) {
-        console.error("❌ MP ERROR:", error);
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({
-                error: error.message || "Error interno",
-                cause: error.cause || []
+            body: JSON.stringify({ 
+                error: error.message,
+                cause: error.cause 
             }),
         };
     }

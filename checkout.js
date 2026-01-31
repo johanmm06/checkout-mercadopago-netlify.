@@ -70,8 +70,7 @@ async function renderPaymentBrick() {
             },
             // dentro de settings.callbacks
 // ... dentro de settings.callbacks
-onSubmit: async ({ formData }) => { // <--- ASEGÚRATE QUE DIGA 'onSubmit' CON UNA SOLA 'o'
-    console.log("🚀 Enviando datos al servidor...", formData);
+onSubmit: async ({ formData }) => {
     try {
         const response = await fetch("/.netlify/functions/create-payment", {
             method: "POST",
@@ -83,36 +82,34 @@ onSubmit: async ({ formData }) => { // <--- ASEGÚRATE QUE DIGA 'onSubmit' CON U
         });
 
         const result = await response.json();
-        console.log("✅ Respuesta del servidor:", result);
 
-        // Si el servidor devuelve error 500 o algo similar
         if (result.error) {
-            console.error("❌ Error de MP:", result.error);
             alert("Error: " + result.error);
             return;
         }
 
-        // LÓGICA DE REDIRECCIÓN
-        const linkPago = result.point_of_interaction?.transaction_data?.ticket_url;
+        // --- LÓGICA PARA EFECTY ---
         const referenciaEfecty = result.transaction_details?.verification_code;
-
         if (result.payment_method_id === 'efecty' && referenciaEfecty) {
             window.location.href = `/resultado?estado=pendiente&referencia=${referenciaEfecty}`;
             return;
         }
 
-        if (linkPago) {
-            window.location.href = linkPago;
+        // --- LÓGICA PARA PSE ---
+        const linkPSE = result.point_of_interaction?.transaction_data?.ticket_url;
+        if (result.payment_method_id === 'pse' && linkPSE) {
+            window.location.href = linkPSE;
             return;
         }
 
+        // --- LÓGICA PARA TARJETAS ---
         if (result.status === "approved") {
             window.location.href = "/resultado";
             return;
         }
 
     } catch (err) {
-        console.error("❌ Error en la petición:", err);
+        console.error("❌ Error:", err);
     }
 }
         },
