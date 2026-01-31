@@ -33,22 +33,29 @@
     event.headers["client-ip"] ||
     "127.0.0.1";
   const response = await payment.create({
-    body: {
-      ...data,
-      description: "Acceso al curso Técnico Elite",
-      callback_url: "https://accesocursocel.netlify.app/resultado",
-      // 💡 ESTO ES LO QUE SOLUCIONA EL 404 DE DÉBITO Y PSE
-      back_urls: {
-        success: "https://accesocursocel.netlify.app/resultado",
-        pending: "https://accesocursocel.netlify.app/resultado",
-        failure: "https://accesocursocel.netlify.app/resultado"
-      },
-      auto_return: "approved", // Regresa automáticamente si todo sale bien
-      additional_info: {
-        ip_address: ip,
-      },
+  body: {
+    transaction_amount: data.transaction_amount,
+    token: data.token,
+    description: "Acceso al curso Técnico Elite",
+    installments: data.installments,
+    payment_method_id: data.payment_method_id,
+    issuer_id: data.issuer_id,
+    payer: {
+      email: data.payer.email,
+      identification: data.payer.identification
     },
-  });
+    // AQUÍ ESTÁ EL CAMBIO: Se envían como parámetros de la preferencia o raíz según la versión
+    // Si usas Bricks, MP espera que la redirección se maneje así:
+    callback_url: "https://accesocursocel.netlify.app/resultado",
+    notification_url: "https://accesocursocel.netlify.app/.netlify/functions/webhooks", // Opcional
+    
+    // Estos campos a veces causan conflicto en el SDK v2 si no están en una "Preference"
+    // Vamos a intentar enviarlos así para que el servidor los acepte:
+    additional_info: {
+      ip_address: ip,
+    },
+  },
+});
 
 
       // ... (resto del código arriba igual)
