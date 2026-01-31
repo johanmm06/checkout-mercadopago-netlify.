@@ -70,47 +70,48 @@ async function renderPaymentBrick() {
             },
             // dentro de settings.callbacks
 onSubmit: async ({ formData }) => {
-  try {
-    const payload = {
-      ...formData,
-      transaction_amount: 39900
-    };
+            try {
+                // 1. Preparamos los datos
+                const payload = {
+                    ...formData,
+                    transaction_amount: 39900
+                };
 
-    const response = await fetch("/.netlify/functions/create-payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+                // 2. Llamamos a tu función de Netlify
+                const response = await fetch("/.netlify/functions/create-payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
 
-    // ... dentro de tu fetch a la función de Netlify ...
-const result = await response.json();
+                const result = await response.json();
+                console.log("Datos recibidos de MP:", result);
 
-if (result.status === "pending" || result.status === "in_process") {
-    // 🔗 ESTA ES LA CLAVE: Buscamos la URL de redirección
-    const redirectUrl = result.point_of_interaction?.transaction_data?.ticket_url;
+                // 3. LA CLAVE: Redirección para PSE / Efecty
+                const linkDePago = result.point_of_interaction?.transaction_data?.ticket_url;
 
-    if (redirectUrl) {
-        // Opción A: Abrir en la misma pestaña (Recomendado para PSE)
-        window.location.href = redirectUrl; 
-        
-        // Opción B: Abrir en pestaña nueva (Útil si quieres que tu web siga abierta)
-        // window.open(redirectUrl, '_blank');
-    } else {
-        // Si por alguna razón no hay URL, mandamos a tu página de espera
-        window.location.href = "https://accesocursocel.netlify.app/pendiente";
-    }
-    return;
-}
+                if (linkDePago) {
+                    console.log("🚀 Redirigiendo al portal de pago...");
+                    window.location.href = linkDePago; // Abre el banco o el recibo
+                    return;
+                }
 
-    // 3. CASO RECHAZADO
-    alert("El pago fue rechazado o falló. Intenta de nuevo.");
+                // 4. Caso para tarjetas aprobadas inmediatamente
+                if (result.status === "approved") {
+                    window.location.href = "https://accesocursocel.netlify.app/resultado";
+                    return;
+                }
 
-  } catch (err) {
-    console.error("Error en onSubmit:", err);
-    alert("Hubo un error técnico al procesar el pago.");
-  }
-},
+                // 5. Si algo falló
+                if (result.error || result.status === "rejected") {
+                    alert("El pago fue rechazado. Por favor, intenta con otro medio.");
+                }
 
+            } catch (err) {
+                console.error("❌ Error en el proceso de pago:", err);
+                alert("Hubo un error técnico. Revisa la consola.");
+            }
+        }
         },
     };
 

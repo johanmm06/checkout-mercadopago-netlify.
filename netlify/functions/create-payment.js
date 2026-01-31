@@ -46,20 +46,22 @@
   });
 
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify(response),
-      };
-    } catch (error) {
-      console.error("❌ MP ERROR:", error);
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({
-          error: error.message,
-          cause: error.cause,
-        }),
-      };
-    }
-  };
+      // ... (resto del código arriba igual)
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify(response), // Aquí envías la respuesta completa si todo salió bien
+    };
+  } catch (error) {
+    console.error("❌ MP ERROR:", error);
+    return {
+      statusCode: 500, // Si falla, avisamos que hubo un error
+      headers,
+      body: JSON.stringify({
+        error: error.message,
+        cause: error.cause
+      }),
+    };
+  }
+};
+    

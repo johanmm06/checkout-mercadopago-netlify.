@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso confirmado</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+body{
+font-family:'Inter',sans-serif;
+background:#07121E;
+color:white;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.content-wrapper{max-width:520px;width:100%;}
+.glass-panel{
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(10px);
+border-radius:32px;
+border:1px solid rgba(255,255,255,0.08);
+}
+.btn-cta{
+background:#22c55e;
+color:#07121E;
+font-weight:900;
+box-shadow:0 0 25px rgba(34,197,94,.45);
+transition:.3s;
+}
+.btn-cta:hover{
+transform:translateY(-2px);
+box-shadow:0 0 40px rgba(34,197,94,.75);
+}
+.step{
+background:rgba(34,197,94,.15);
+color:#22c55e;
+width:28px;
+height:28px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-weight:900;
+font-size:12px;
+border:1px solid rgba(34,197,94,.35);
+flex-shrink:0;
+}
+</style>
+</head>
+
+<body class="px-6 py-12">
+
+<div class="content-wrapper">
+
+<!-- HERO -->
+<div class="text-center mb-10">
+<div class="inline-flex items-center justify-center w-20 h-20 bg-green-500/10 rounded-full mb-8 border border-green-500/20">
+✓
+</div>
+
+<h1 class="text-3xl font-black uppercase tracking-tight mb-4">
+Pago confirmado <br>
+<span class="text-green-500">Activación de acceso</span>
+</h1>
+
+<p class="text-gray-400 text-sm">
+Tu compra fue procesada correctamente.<br>
+El acceso se entrega de forma personalizada por nuestro canal de soporte.
+</p>
+</div>
+
+<!-- INSTRUCCIONES -->
+<div class="glass-panel p-8 mb-8">
+<h2 class="text-xs font-black tracking-[0.2em] text-gray-500 uppercase mb-6 text-center">
+Paso final
+</h2>
+
+<div class="space-y-6">
+
+<div class="flex gap-4">
+<div class="step">1</div>
+<div>
+<p class="font-bold text-sm">Guarda nuestro número de WhatsApp</p>
+<p class="text-gray-400 text-xs mt-1">
+Este es el <strong>soporte oficial</strong> y el medio por donde activamos tu acceso al contenido.
+</p>
+</div>
+</div>
+
+<div class="flex gap-4">
+<div class="step">2</div>
+<div>
+<p class="font-bold text-sm">Escríbenos por WhatsApp</p>
+<p class="text-gray-400 text-xs mt-1">
+Al presionar el botón de abajo se abrirá WhatsApp.  
+Envía el mensaje con el texto: <strong>“Mi correo es:”</strong> y tu correo de Gmail.
+</p>
+</div>
+</div>
+
+<div class="flex gap-4">
+<div class="step">3</div>
+<div>
+<p class="font-bold text-sm">Activamos tu acceso y soporte</p>
+<p class="text-gray-400 text-xs mt-1">
+En un plazo aproximado de <strong>10 a 15 minutos</strong> recibirás el acceso completo a la plataforma  
+y este mismo número quedará como tu canal de soporte.
+</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- CTA -->
+<div class="text-center">
+<a href="https://wa.me/573227962245?text=Mi%20correo%20es%3A%20"
+target="_blank"
+class="btn-cta block w-full text-xl py-6 rounded-2xl uppercase tracking-tight">
+Escribir al soporte por WhatsApp
+</a>
+
+<p class="text-gray-500 text-[11px] mt-8 leading-relaxed">
+Este botón abre directamente WhatsApp para activar tu acceso.<br>
+Guarda el número: será tu contacto de soporte para cualquier duda futura.
+</p>
+</div>
+
+</div>
+
+</body>
+</html>
