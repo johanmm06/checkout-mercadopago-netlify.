@@ -69,7 +69,9 @@ async function renderPaymentBrick() {
                 console.error("❌ Error en el Brick:", error);
             },
             // dentro de settings.callbacks
-oonSubmit: async ({ formData }) => {
+// ... dentro de settings.callbacks
+onSubmit: async ({ formData }) => { // <--- ASEGÚRATE QUE DIGA 'onSubmit' CON UNA SOLA 'o'
+    console.log("🚀 Enviando datos al servidor...", formData);
     try {
         const response = await fetch("/.netlify/functions/create-payment", {
             method: "POST",
@@ -81,38 +83,36 @@ oonSubmit: async ({ formData }) => {
         });
 
         const result = await response.json();
-        console.log("Respuesta de MP:", result);
+        console.log("✅ Respuesta del servidor:", result);
 
-        // 1. CASO PSE o EFECTY (Generan un link o ticket)
+        // Si el servidor devuelve error 500 o algo similar
+        if (result.error) {
+            console.error("❌ Error de MP:", result.error);
+            alert("Error: " + result.error);
+            return;
+        }
+
+        // LÓGICA DE REDIRECCIÓN
         const linkPago = result.point_of_interaction?.transaction_data?.ticket_url;
         const referenciaEfecty = result.transaction_details?.verification_code;
 
         if (result.payment_method_id === 'efecty' && referenciaEfecty) {
-            // Mandamos a la página de resultado con modo PENDIENTE para Efecty
             window.location.href = `/resultado?estado=pendiente&referencia=${referenciaEfecty}`;
             return;
         }
 
         if (linkPago) {
-            // Si es PSE, abrimos el portal bancario
             window.location.href = linkPago;
             return;
         }
 
-        // 2. CASO TARJETAS (Aprobación inmediata)
         if (result.status === "approved") {
             window.location.href = "/resultado";
             return;
         }
 
-        // 3. CASO ERROR O RECHAZO
-        if (result.status === "rejected" || result.error) {
-            alert("El pago fue rechazado. Intenta con otro medio.");
-        }
-
     } catch (err) {
-        console.error("❌ Error:", err);
-        alert("Hubo un problema técnico. Intenta de nuevo.");
+        console.error("❌ Error en la petición:", err);
     }
 }
         },
