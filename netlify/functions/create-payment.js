@@ -36,9 +36,14 @@
     body: {
       ...data,
       description: "Acceso al curso Técnico Elite",
-      // 💡 SOLUCIÓN: Usamos una URL de producción temporal o una válida
-      // Mercado Pago aceptará esta aunque estés en localhost
-      callback_url: "https://accesocursocel.netlify.app/resultado", 
+      callback_url: "https://accesocursocel.netlify.app/resultado",
+      // 💡 ESTO ES LO QUE SOLUCIONA EL 404 DE DÉBITO Y PSE
+      back_urls: {
+        success: "https://accesocursocel.netlify.app/resultado",
+        pending: "https://accesocursocel.netlify.app/resultado",
+        failure: "https://accesocursocel.netlify.app/resultado"
+      },
+      auto_return: "approved", // Regresa automáticamente si todo sale bien
       additional_info: {
         ip_address: ip,
       },

@@ -16,7 +16,7 @@ function initMercadoPago() {
         return;
     }
 
-    mp = new MercadoPago("TEST-14929baf-8fde-43c5-875a-a1c6a708ed09", {
+    mp = new MercadoPago("APP_USR-4342d87e-3fcf-467f-a748-6807c24eccfe", {
         locale: "es-CO",
     });
 
@@ -87,18 +87,22 @@ onSubmit: async ({ formData }) => {
                 const result = await response.json();
                 console.log("Datos recibidos de MP:", result);
 
-                // 3. LA CLAVE: Redirección para PSE / Efecty
-                const linkDePago = result.point_of_interaction?.transaction_data?.ticket_url;
+                // BUSCAMOS EL LINK DE REDIRECCIÓN
+    const linkDePago = result.point_of_interaction?.transaction_data?.ticket_url;
 
-                if (linkDePago) {
-                    console.log("🚀 Redirigiendo al portal de pago...");
-                    window.location.href = linkDePago; // Abre el banco o el recibo
-                    return;
-                }
+    if (linkDePago) {
+        window.location.href = linkDePago; 
+        return;
+    } else if (result.payment_method_id === 'efecty') {
+        // SI ES EFECTY Y NO HAY LINK (CASO PRUEBA), LE DAMOS EL CÓDIGO MANUAL
+        alert("¡Casi listo! Ve a Efecty con este código: " + result.transaction_details.verification_code);
+        window.location.href = "/resultado"; // Lo mandamos a tu página de WhatsApp
+        return;
+    }
 
                 // 4. Caso para tarjetas aprobadas inmediatamente
                 if (result.status === "approved") {
-                    window.location.href = "https://accesocursocel.netlify.app/resultado";
+                    window.location.href = "/resultado";
                     return;
                 }
 
