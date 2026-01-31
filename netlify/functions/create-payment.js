@@ -35,7 +35,7 @@ export const handler = async (event) => {
             additional_info: {
                 ip_address: ip
             },
-            callback_url: "https://cursonexodigital.netlify.app/resultado",
+            callback_url: "https://cursonexodigital1.netlify.app/resultado",
         };
 
         // Si es Tarjeta

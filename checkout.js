@@ -71,7 +71,10 @@ async function renderPaymentBrick() {
             // dentro de settings.callbacks
 // ... dentro de settings.callbacks
 onSubmit: async ({ formData }) => {
+    console.log("1. Botón presionado. Datos capturados:", formData);
+    
     try {
+        console.log("2. Enviando petición a Netlify...");
         const response = await fetch("/.netlify/functions/create-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -81,35 +84,34 @@ onSubmit: async ({ formData }) => {
             })
         });
 
+        console.log("3. Respuesta recibida del servidor, procesando JSON...");
         const result = await response.json();
+        console.log("4. Resultado final:", result);
 
         if (result.error) {
+            console.error("❌ Error devuelto por MP:", result.error);
             alert("Error: " + result.error);
             return;
         }
 
-        // --- LÓGICA PARA EFECTY ---
+        // Redirecciones (PSE / EFECTY)
+        const linkPSE = result.point_of_interaction?.transaction_data?.ticket_url;
         const referenciaEfecty = result.transaction_details?.verification_code;
+
         if (result.payment_method_id === 'efecty' && referenciaEfecty) {
             window.location.href = `/resultado?estado=pendiente&referencia=${referenciaEfecty}`;
             return;
         }
 
-        // --- LÓGICA PARA PSE ---
-        const linkPSE = result.point_of_interaction?.transaction_data?.ticket_url;
-        if (result.payment_method_id === 'pse' && linkPSE) {
+        if (linkPSE) {
+            console.log("🚀 Redirigiendo a PSE...");
             window.location.href = linkPSE;
             return;
         }
 
-        // --- LÓGICA PARA TARJETAS ---
-        if (result.status === "approved") {
-            window.location.href = "/resultado";
-            return;
-        }
-
     } catch (err) {
-        console.error("❌ Error:", err);
+        console.error("❌ ERROR CRÍTICO EN FETCH:", err);
+        alert("Hubo un problema de conexión. Revisa la consola.");
     }
 }
         },
