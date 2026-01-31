@@ -89,10 +89,10 @@ onSubmit: async ({ formData }) => {
     // Manejo claro según estado (redirige solo si aprobado)
     if (result && result.status === "approved") {
       // pago aprobado → agradecimiento
-      window.location.href = "https://accesocurso.netlify.app/";
+      window.location.href = "https://accesocursocel.netlify.app/";
     } else if (result && result.status === "in_process") {
       // pendiente → página pendiente (opcional)
-      window.location.href = "https://accesocurso.netlify.app/pendiente";
+      window.location.href = "https://accesocursocel.netlify.app/pendiente";
     } else {
       // fallo / cualquier otra cosa → mostrar error o cerrar modal
       alert("No se pudo procesar el pago. Intenta con otra tarjeta o método.");
